@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Search - Results</title>
+</head>
+<body>
+    <h2>Search Results</h2>
+    <form action="/display-results" method="post">
+        <ul>
+            {% for image in image_path %}
+                <li>
+                    <img src="{{ url_for('static', filename=image) }}" alt="Result Image">
+                    <p>Image: {{ image }}</p>
+                    <input type="hidden" name="image_ids[]" value="{{ loop.index0 }}">
+                    <label for="relevant_{{ loop.index0 }}">Is this image relevant?</label>
+                    <select name="relevant[]" id="relevant_{{ loop.index0 }}">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </li>
+            {% endfor %}
+        </ul>
+        <input type="submit" value="Submit Feedback">
+    </form>
+</body>
+</html>
